@@ -1,0 +1,73 @@
+@(customers: List[models.Customer])
+@main("Customer Page") {
+  
+  <p class="lead">Customer Info</p>
+  
+
+  @if(flash.containsKey("success")){
+    <div class="alert alert-success">
+      @flash.get("success")
+    </div>
+}
+
+  <table class="table table-bordered table-hover table-condensed">
+  
+  <thead>
+  
+  <!-- The header row-->
+  
+  <tr>
+  
+  <th>ID</th>
+  
+  <th>Name</th>
+  
+  <th>Address</th>
+  
+  <th>Number</th>
+  
+  <th>DOB</th>
+  
+  </tr>
+  
+  </thead>
+  
+  <tbody>
+  
+  <!-- Product row(s) -->
+  @for(p<-customers) {
+  <tr>
+  
+  <td>@p.getId</td>
+  
+  <td>@p.getName</td>
+  
+  <td>@p.getAddress</td>
+  
+  <td>@p.getNumber</td>
+  
+  <td>@p.getDob</td>
+  <td>
+    <a href="@routes.HomeController.updateCustomer(p.getId)" class="button-xs btn-danger" onclick="return confirmDel();">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </a>
+  </td>
+  <td>
+    <a href="@routes.HomeController.deleteCustomer(p.getId)" class="button-xs btn-danger" onclick="return confirmDel();">
+      <span class="glyphicon glyphicon-trash"></span>
+    </a>
+  </td>
+  </tr>
+}
+  
+  </tbody>
+  
+  </table>
+  
+  <p>
+    <a href="@routes.HomeController.addCustomer()">
+        <button class="btn btn-primary">Add a customer</button>
+    </a>
+
+  </p>
+  } 
